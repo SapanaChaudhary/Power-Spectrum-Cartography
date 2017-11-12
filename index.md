@@ -15,7 +15,7 @@ The GSM protocol lists 43 different types of messages that are exchanged between
 
 Our data contains the following message types, in Uplink and Downlink directions:
 
-> Abis, BCCH, BS, BTS, Channel, Connection, Data, Deactivate, Direction, Error, Establish, Handover, Immediate, MS,   
+> Abis, BCCH, BS, BTS, Channel, Connection, Data, Deactivate, Direction, Error, Establish, Handover, Immediate, MS,
 > Measurement, RF, Release, SACCH, SMS
 
 Following is an instance of trace file from the data: (Fields followed by the values taken by those fields)
