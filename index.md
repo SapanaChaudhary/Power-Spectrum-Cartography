@@ -57,22 +57,21 @@ The data obtained from the step above contains neighbour cell bcch information a
 1. Get the actual bcch values 
 This file gets the actual bcch values for each trace(i.e. one row of the data)
 The following operations are performed to achieve this:
-• Load the conversion table(bcch_ncell_sec_139.mat) that maps BCCH values occuring in the range ’0-10’(or more than 10 depending on the sector) in the traces to actual BCCH values in the range +-66 to +-81
-• Conversion tables for 3 sectors of Samathur are available in ncell_to_bcch 
-• Load BCCH and BSIC data for all the 6 neighbours
-This data occurs in the columns {49,50},{52,53},{55,56},{57,58},{60,61},{63,64} of the data matrix.
-• Obtain actual BCCH frequencies corresponding to the dummy BCCHs from all the neighbours
-• If dummy BCCH cannot be mapped according to T1, assign it an invalid token = 1111
+* Load the conversion table(bcch_ncell_sec_139.mat) that maps BCCH values occuring in the range ’0-10’(or more than 10 depending on the sector) in the traces to actual BCCH values in the range +-66 to +-81
+* Conversion tables for 3 sectors of Samathur are available in ncell_to_bcch 
+* Load BCCH and BSIC data for all the 6 neighbours. This data occurs in the columns {49,50},{52,53},{55,56},{57,58},{60,61},{63,64} of the data matrix.
+* Obtain actual BCCH frequencies corresponding to the dummy BCCHs from all the neighbours
+* If dummy BCCH cannot be mapped according to T1, assign it an invalid token = 1111
 
 2. Create mapping of possible BCCH, BSIC, Cell ID tuples from the data
-• Load the data pertaining to BCCH, BSIC, Cell names
-• Create a mapping of valid BCCH, BSIC, Cell IDs
-• Mapping is saved in my_map.mat
+* Load the data pertaining to BCCH, BSIC, Cell names
+* Create a mapping of valid BCCH, BSIC, Cell IDs
+* Mapping is saved in my_map.mat
 
 3. Obtain final localization data
 Run get_final_data.m
-• For a particular trace instance and a particular neighbour in it, if BCCH = valid, save BCCH,BSIC,Cell ID, RSSI, Latitude, Longitude data.
-• Otherwise save invalid token = 1111 for all the fields mentioned above.
+* For a particular trace instance and a particular neighbour in it, if BCCH = valid, save BCCH,BSIC,Cell ID, RSSI, Latitude, Longitude data.
+* Otherwise save invalid token = 1111 for all the fields mentioned above.
 
 Further statistics of the final data, like different numbers of neighbouring cells for a particular reading, can now be obtained from the data.
 
