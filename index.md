@@ -1,7 +1,8 @@
 ###
 
-This project is a part of the work that I am doing with [Dr. Radha Krishna Ganti](http://www.ee.iitm.ac.in/~rganti/). 
-In this project, startig from raw GSM data, I have used an empirical model of the environment to first localize users roughly. Following this, I generate power spectrum maps over the given geographical region. The project is implemented in matlab from scratch.   
+With [Dr. Radha Krishna Ganti](http://www.ee.iitm.ac.in/~rganti/), [Dr. Balaraman Ravindran](https://www.cse.iitm.ac.in/~ravi/) and [Dr. Bhaskar Ramamurthi](http://www.ee.iitm.ac.in/~bhaskar/).
+
+In this project, starting from the raw GSM data, I have used an empirical model of the environment to first localize users roughly. Following this, I generate power spectrum maps over the given geographical region. The project is implemented in matlab from scratch.   
 
 #### Description of the GSM data 
 The data for the purpose of this project is RSL(Radio Signaling Link) data recorded by the Abis Interface. Abis interface is the interface between between BTS and BSC as shown in the diagram below:
