@@ -1,4 +1,4 @@
-###
+### About 
 
 With [Dr. Radha Krishna Ganti](http://www.ee.iitm.ac.in/~rganti/), [Dr. Balaraman Ravindran](https://www.cse.iitm.ac.in/~ravi/) and [Dr. Bhaskar Ramamurthi](http://www.ee.iitm.ac.in/~bhaskar/).
 
