@@ -135,15 +135,18 @@ site ID + cell ID + Trx No. + Channel number
 
 An example of a call from the same user is the following:
 Sector 139: trace # 1,9,17 correspond to the same user. 
-site ID        cell ID        trx_No        cnl     time_slot    timing_advance
-– 38         139         3         1     0         1
-– 38         139         3         1     0         1
-– 38         139         3         1     0         0
+
+| Site ID | Cell ID  | Trx_No | Channel No. | Time Slot | Timing Adv |
+|:--------|:---------|:-------|:------------|:----------|:-----------|
+| 38      | 139      | 3      | 1           | 0         | 1          |
+| 38      | 139      | 3      | 1           | 0         | 1          |
+| 38      | 139      | 3      | 1           | 0         | 0          |
 
 Localization for each of the traces, with Samathur as origin, results in following (x,y) coordinates in meters:
-– 286.737848281044         469.341460307053
-– 287.807527516458         468.686277913983
-– 0                 0
+|:--------------------|:---------------------|
+| 286.737848281044    |     469.341460307053 |
+| 287.807527516458    |     468.686277913983 |
+| 0                   |     0                |
 
 * * *
 #### Further Improvements
