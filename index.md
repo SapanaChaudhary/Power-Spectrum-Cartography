@@ -26,10 +26,32 @@ Index  Report  Time  Interface  Type  Message  Type  Direction  Location  Condit
 ```
 We have data recorded over 16/09/30 2:59:49 PM to 16/09/30 3:20:14 PM.
 
+* * *
+#### Data Extraction
+The obtained raw data, in the form mentioned above, contains a lot more messages and fields(within those messages) than are useful for the purpose of this project. In this section we extract the useful data. The traces corresponding to message type = ‘Measurement Report’ are extracted and dumped into new set of text files. Each of these text files are then given to the code that outputs csv files consisting of the following fields(column-wise) in the same order:
+
+> day, month, year, hour, minutes, seconds, millisecond, site_id, cell_id, trx_values, ul_sender_cpu_id, ul_sender_pid
+> ul_receiver_cpu_id, ul_receiver_pid, ul_length, msg_type, handle, crdlc_ccb, mtls_ccb, auc_reserved, data_length,
+> channel_type, time_slot, rxlev_ncell2, rxlev_full_up, rxqual_full_up, rxqual_sub_up, tlv_type_rx_main_level,
+> tlv_type_rx_sub_level, bs_reserved, bs_power_level, ms_power_level, ms_reserved, actual_timing_adv, timing_reserved
+> enhanced_meas_msg_type, ba_used, dtx_used, rx_lev_full_serving_cell, ba_used_3g, meas_valid, rx_lev_sub_serving_cell
+> spare, rx_qual_full_serving_cell, rx_qual_sub_serving_cell, no_n_cell rxlev_ncell_1, bcch_freq_ncell_1, bsic_ncell_1
+> rxlev_ncell_2, bcch_freq_ncell_2, bsic_ncell_2, rxlev_ncell_3, bcch_freq_ncell_3, bsic_ncell_3, rxlev_ncell_4
+> bcch_freq_ncell_4, bsic_ncell_4, rxlev_ncell_5, bcch_freq_ncell_5, bsic_ncell_5, rxlev_ncell_6, bcch_freq_ncell_6,
+> bsic_ncell_6
+
+Sectorized data:
+The Samathur BS(Base Station) has 3 sectors encompassing 65 degrees each.
+Figure below depicts the antenna locations for Samathur.
+Sectors are numbered as 139(Sec-1), 140(Sec-2 and 141(Sec-3).
+
+The mat files sec_139, sec_140 and sec_141 contain the complete sector data with timing information.
+
+The cellular data is now available as a 220327\*64 matrix contained in sec_139.mat. 64 is the number of fields(occurring in the same order) as listed above. 220327 is the number of traces, each recorded approximately at an interval of 46.7622 ms. This would mean unique user data comes in approximately at every 11th reading.  
 
 * * *
+#### Processing data for the localization algorithm
 
-* * *
 
 * * *
 
