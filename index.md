@@ -1,6 +1,4 @@
----
-layout: default
----
+###
 
 This project is a part of the work that I am doing with [Dr. Radha Krishna Ganti](http://www.ee.iitm.ac.in/~rganti/). 
 In this project, startig from raw GSM data, I have used an empirical model of the environment to first localize users roughly. Following this, I generate power spectrum maps over the given geographical region. The project is implemented in matlab from scratch.   
