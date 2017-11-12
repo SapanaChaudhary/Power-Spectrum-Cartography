@@ -143,11 +143,12 @@ Sector 139: trace # 1,9,17 correspond to the same user.
 | 38      | 139      | 3      | 1           | 0         | 0          |
 
 Localization for each of the traces, with Samathur as origin, results in following (x,y) coordinates in meters:
+
 |  x coordinate       |  y coordinate        |
 |:--------------------|:---------------------|
-| 286.737848281044    |     469.341460307053 |
-| 287.807527516458    |     468.686277913983 |
-| 0                   |     0                |
+| 286.737848281044    | 469.341460307053     |
+| 287.807527516458    | 468.686277913983     |
+| 0                   | 0                    |
 
 * * *
 #### Further Improvements
