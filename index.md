@@ -1,6 +1,6 @@
 ### About 
 
-With [Dr. Radha Krishna Ganti](http://www.ee.iitm.ac.in/~rganti/), [Dr. Balaraman Ravindran](https://www.cse.iitm.ac.in/~ravi/), [Dr. Bhaskar Ramamurthi](http://www.ee.iitm.ac.in/~bhaskar/) and V.Aravind (SDE, RF Coordination,BSNL, Coimbatore). 
+With [Dr. Radha Krishna Ganti](http://www.ee.iitm.ac.in/~rganti/), [Dr. Balaraman Ravindran](https://www.cse.iitm.ac.in/~ravi/), [Dr. Bhaskar Ramamurthi](http://www.ee.iitm.ac.in/~bhaskar/) and V. Aravind (SDE, RF Coordination,BSNL, Coimbatore). 
 
 In this project, starting from the raw GSM data, I have used an empirical model of the environment to first localize users roughly. Following this, I generate power spectrum maps over the given geographical region. The project is implemented in matlab from scratch.   
 
