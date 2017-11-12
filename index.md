@@ -18,6 +18,15 @@ Our data contains the following message types, in Uplink and Downlink directions
 > Abis, BCCH, BS, BTS, Channel, Connection, Data, Deactivate, Direction, Error, Establish, Handover, Immediate, MS,   
 > Measurement, RF, Release, SACCH, SMS
 
+Following is an instance of trace file from the data: (Fields followed by the values taken by those fields)
+```
+Index  Report  Time  Interface  Type  Message  Type  Direction  Location  Condition  Content
+
+50137  2016-09-30 11:30:11 910  Abis Interface RSL  Abis Cell Pack Page Command     Downlink   Site ID: 12,Cell ID: 5, TRX No.: 0   7F F0 00 01 00 00 01 53 7F F0 00 01 00 00 01 38 00 00 00 18 00 96 FF FF 00 29 00 00 00 00 00 0C AA 18 01 00 0C 05 F4 1A 64 76 85 01
+```
+We have data recorded over 16/09/30 2:59:49 PM to 16/09/30 3:20:14 PM.
+
+
 * * *
 
 * * *
