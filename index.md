@@ -52,12 +52,101 @@ The cellular data is now available as a 220327\*64 matrix contained in sec_139.m
 
 * * *
 #### Processing data for the localization algorithm
+The data obtained from the step above contains neighbour cell bcch information as numbers called ncell number. These numbers need to be mapped to actual bcch values, independently for each sector. Now, for each sector of the BS, we construct a data matrix that contains the information on (bcch,bsic,cell ID, RSSI, lat, long) for each of the 6 neighbouring BSs, timing advance for that trace and power received by the UE(User Equipment) from Samathur BS (all the fields in this same order). We follow the following steps to get to this data, individually for each sector :
 
+1. Get the actual bcch values 
+This file gets the actual bcch values for each trace(i.e. one row of the data)
+The following operations are performed to achieve this:
+• Load the conversion table(bcch_ncell_sec_139.mat) that maps BCCH values occuring in the range ’0-10’(or more than 10 depending on the sector) in the traces to actual BCCH values in the range +-66 to +-81
+• Conversion tables for 3 sectors of Samathur are available in ncell_to_bcch 
+• Load BCCH and BSIC data for all the 6 neighbours
+This data occurs in the columns {49,50},{52,53},{55,56},{57,58},{60,61},{63,64} of the data matrix.
+• Obtain actual BCCH frequencies corresponding to the dummy BCCHs from all the neighbours
+• If dummy BCCH cannot be mapped according to T1, assign it an invalid token = 1111
+
+2. Create mapping of possible BCCH, BSIC, Cell ID tuples from the data
+• Load the data pertaining to BCCH, BSIC, Cell names
+• Create a mapping of valid BCCH, BSIC, Cell IDs
+• Mapping is saved in my_map.mat
+
+3. Obtain final localization data
+Run get_final_data.m
+• For a particular trace instance and a particular neighbour in it, if BCCH = valid, save BCCH,BSIC,Cell ID, RSSI, Latitude, Longitude data.
+• Otherwise save invalid token = 1111 for all the fields mentioned above.
+
+Further statistics of the final data, like different numbers of neighbouring cells for a particular reading, can now be obtained from the data.
 
 * * *
+#### The Localization Algorithm 
+
+Each row of the data matrix obtained above contains information that can be used to localize that UE at a particular position in and around the cell corresponding to Samathur BS. 
+The localization algorithm followed is simple:
+
+Remove all rssi with rxlev ’0’ and ’1’, Remove all co-sectors of samathur
+Perform localization without removing the shadowing: 
+bs_power in dB = 2.86789556 (60/31 W)
+Store the conversion table (say RS) from RXLEV to RSSIs
+Read BS IDs, location data and RSSIs
+For each row: create list of neighbours with Lat,Long, cumulative RSSI
+For every neighbour whose inverted RSSI intersects with inverted BS RSSI, find the centroid and localize user there.
+Localizing user above would involve both radius and direction, quantities which are appropriately determined.
+If BS RSSI is the only RSSI, invert it and locate the user anywhere on the arc(ideally 120 degrees, here 65 degrees) formed by respective distance.
+
+The RSSIs are inverted based on the Okumura-Hata model. Parameters used for the same are: Frequency = 900 MHz, Average mobile station height = 2.5 m, Average antenna height = 35m, Different path loss correction factors are used depending on experiments with small sized city/open area. The inversion process can be easily understood from the following matlab code:
+
+```matlab
+% inverted okumura hata model
+function [d] = dist_from_pathlossindb(lo)
+% lu = path loss in dB from small sized city
+% lo = path loss in dB from open area
+f=900;
+hm=2.5; % average mobile station height
+hb=35;
+
+% okumara hata model
+% d is in meters
+% ch =3.2*(log10(11.75*hm))^2-4.97 ; for large cities
+ch = 0.8 + (1.1*log10(f)-0.7)*hm - 1.56*log10(f);
+lu = lo + 4.78*(log10(f))^2 - 18.33*log10(f) + 40.94 ; 
+d = 1000*10^((lu - 69.55 - 26.16*log10(f) + 13.82*log10(hb)+ ch)/(44.9-6.55*log10(hb)));
+```
+The figure below is how the localization algorithm is working for a particular trace. The red dot is the BS. The blue dot is where the UE is localized. Hollow circles are the locations of neighbouring BSs. The circles around each of the BSs are the inverted distances corresponding to the RSSI received at those BSs. The x and y axes are latitude and longitude, respectively.
 
 * * *
+#### Map Reconstruction
+Once the users are localized , the power values corresponding to those users are interpolated using scatteredInterpolant matlab function. The function is used to do interpolation on 2D scattered data. We use the default linear interpolation. The generated heat maps over Samathur and neighbouring cells look like the following figure: 
 
+* * *
+#### Validation
+
+
+
+* * * 
+#### Including TA for localzation
+* If the UE is localized at a distance > TA\*550 (because each change in value in TA leads to a change of 550m), then I am localizing UE at TA\*550 in the right direction.
+* Otherwise, leave the localization untouched. 
+
+* * *
+#### Averaging power over multiple traces for the same user
+A single call from the same user spans over multiple traces. Each of these traces come at an interval of  approximately 480 ms. A better way to do power map reconstruction would be to average the power from the same user; rather than localizing him/her at different locations with corresponding powers. 
+
+A user is uniquely identified by:
+site ID + cell ID + Trx No. + Channel number
+
+An example of a call from the same user is the following:
+Sector 139: trace # 1,9,17 correspond to the same user. 
+site ID        cell ID        trx_No        cnl     time_slot    timing_advance
+– 38         139         3         1     0         1
+– 38         139         3         1     0         1
+– 38         139         3         1     0         0
+
+Localization for each of the traces, with Samathur as origin, results in following (x,y) coordinates in meters:
+– 286.737848281044         469.341460307053
+– 287.807527516458         468.686277913983
+– 0                 0
+
+* * *
+#### Further Improvements
 
 
 Text can be **bold**, _italic_, or ~~strikethrough~~.
@@ -80,22 +169,7 @@ This is a normal paragraph following a header. GitHub is a code hosting platform
 
 ### [](#header-3)Header 3
 
-```matlab
-% inverted okumura hata model
-function [d] = dist_from_pathlossindb(lo)
-% lu = path loss in dB from small sized city
-% lo = path loss in dB from open area
-f=900;
-hm=2.5; % average mobile station height
-hb=35;
 
-% okumara hata model
-% d is in meters
-% ch =3.2*(log10(11.75*hm))^2-4.97 ; for large cities
-ch = 0.8 + (1.1*log10(f)-0.7)*hm - 1.56*log10(f);
-lu = lo + 4.78*(log10(f))^2 - 18.33*log10(f) + 40.94 ; 
-d = 1000*10^((lu - 69.55 - 26.16*log10(f) + 13.82*log10(hb)+ ch)/(44.9-6.55*log10(hb)));
-```
 
 #### [](#header-4)Header 4
 
